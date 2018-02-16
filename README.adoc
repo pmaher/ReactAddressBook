@@ -1,10 +1,10 @@
 [[react-and-spring-data-rest-part-1]]
-= Part 1 - Basic Features
+= React Address Book
 :sourcedir: https://github.com/pmaher/ReactAddressBook/tree/master
 
 Welcome!
 
-In this section, you will see how to get a bare-bones Spring Data REST application up and running quickly. Then you will build a simple UI on top of it using Facebook's React.js toolset.
+With this little app you'll be able to add addresses, update address, view addresses and delete addresses using a handy little single page webapp built with React + Spring Boot.
 
 == Step 0 - Building the ReactAddressBook Project
 
