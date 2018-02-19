@@ -1,0 +1,22 @@
+{
+  "preset": "react-native",
+  "globals": {
+    "__DEV__": true
+  },
+  "testMatch": [
+    "**/Tests/**/*.js",
+    "**/__tests__/**/*.js",
+    "**/__tests__/*.js",        
+    "**/?(*.)(spec|test).js?(x)"
+  ],
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "Tests/Setup.js"
+  ],
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  },
+  "transformIgnorePatterns": [
+    "node_modules/(?!react-native|react-navigation)/"
+  ]
+}
