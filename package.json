@@ -28,17 +28,7 @@
   },
   "scripts": {
     "watch": "webpack --watch -d",
-    "test": "jest"
-  },
-  "jest": {
-    "preset": "react-native",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation)"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ]
+    "test": "mocha --compilers js:babel-register -w ./src/main/js/test/**/*.test.js"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -48,9 +38,10 @@
     "babel-preset-react": "^6.16.0",
     "babel-jest": "*",
     "babel-preset-env": "*",
+    "chai": "*",
     "enzyme": "*",
     "enzyme-adapter-react-16": "^1.1.0",
-    "jest": "*",
+    "mocha": "*",
     "jsdom": "^11.4.0"
   }
 }
