@@ -157,6 +157,11 @@
 								'th',
 								null,
 								'Phone'
+							),
+							React.createElement(
+								'th',
+								null,
+								'Postal Code'
 							)
 						),
 						addresses
@@ -202,6 +207,11 @@
 						'td',
 						null,
 						this.props.address.phone
+					),
+					React.createElement(
+						'td',
+						null,
+						this.props.address.zipcode
 					)
 				);
 			}

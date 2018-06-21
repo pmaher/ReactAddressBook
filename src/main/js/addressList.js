@@ -14,6 +14,7 @@ export class AddressList extends React.Component {
 						<th>Last Name</th>
 						<th>Email</th>
 						<th>Phone</th>
+						<th>Postal Code</th>
 					</tr>
 					{addresses}
 				</tbody>
@@ -29,7 +30,8 @@ export class Address extends React.Component {
 				<td>{this.props.address.firstName}</td>
 				<td>{this.props.address.lastName}</td>
 				<td>{this.props.address.email}</td>
-				<td>{this.props.address.phone}</td>				
+				<td>{this.props.address.phone}</td>
+				<td>{this.props.address.zipcode}</td>
 			</tr>
 		)
 	}
