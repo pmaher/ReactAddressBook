@@ -27,21 +27,21 @@ public class AddressBookController {
 		return "index";
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/api/address/view", produces = {
+	@RequestMapping(method = RequestMethod.GET, value = "/api/address/{addressId}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Address getAddressById(@RequestParam("id") String id) {
-		return (Address) addressBookRepository.findOne(Long.parseLong(id));
+	public Address getAddressById(@PathVariable("addressId") int addressId) {
+		return (Address) addressBookRepository.findOne((long) addressId);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/api/address/list", produces = {
+	@RequestMapping(method = RequestMethod.GET, value = "/api/address", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Address> listAllAddresses() {
 		return (List<Address>) addressBookRepository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/api/address/new", produces = {
+	@RequestMapping(method = RequestMethod.POST, value = "/api/address", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public Address newAddress(@RequestBody Address newAddress) {
@@ -52,7 +52,7 @@ public class AddressBookController {
 		return newAddress;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/api/address/delete/{addressId}", produces = {
+	@RequestMapping(method = RequestMethod.DELETE, value = "/api/address/{addressId}", produces = {
 			MediaType.APPLICATION_JSON_VALUE }) 
 	@ResponseBody
 	public String deleteAddress(@PathVariable("addressId") long addressId) {
@@ -60,11 +60,10 @@ public class AddressBookController {
 		return "{ \"message\":\"success\"\n }";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/api/address/update", produces = {
+	@RequestMapping(method = RequestMethod.PUT, value = "/api/address/{addressId}", produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
-	public Address updateAddress(@RequestBody Address updatedAddress) {
-		//return newAddress(firstName, lastName, email, phone, address, address2, city, state, zipcode);
+	public Address updateAddress(@PathVariable("addressId") long addressId, @RequestBody Address updatedAddress) {
 		return newAddress(updatedAddress);
 	}
 }

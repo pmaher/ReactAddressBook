@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Matchers.argThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,8 +69,7 @@ public class AddressBookControllerIntegrationTest {
 		given(this.addressBookRepository.findOne(2L)).willReturn(address2);
 		
 		//WHEN calling the api to list a single address by ID
-		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/api/address/view")
-					.param("id", address2.getId().toString());
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/api/address/"+address2.getId());
 		ResultActions action = this.mockMvc.perform(builder);
 		
 		//THEN the appropriate address is shown
@@ -92,7 +92,7 @@ public class AddressBookControllerIntegrationTest {
 		given(this.addressBookRepository.findAll()).willReturn(addressList);
 		
 		//WHEN calling the api to list all addresses
-		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/api/address/list");
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/api/address");
 		ResultActions action = this.mockMvc.perform(builder);
 		
 		//THEN all addresses should be returned
@@ -125,7 +125,7 @@ public class AddressBookControllerIntegrationTest {
 		Address expectedAddress = new Address("Joe", "Shmo", "joe@shmo.com", "805-999-9999", "324 Channel Islands Blvd","apt 2","Cambria","CA", "93428");
 		ObjectMapper jsonMapper = new ObjectMapper();
 		//WHEN calling the api with the address information
-		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/address/new")
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/address")
 												.contentType(MediaType.APPLICATION_JSON)
 												.content(jsonMapper.writeValueAsString(expectedAddress));
 		
@@ -156,7 +156,7 @@ public class AddressBookControllerIntegrationTest {
 		map.add("addressId", id);
 		
 		//WHEN calling the api with the addressID we want to delete
-		ResultActions action = this.mockMvc.perform(post("/api/address/delete/{addressId}", id));
+		ResultActions action = this.mockMvc.perform(delete("/api/address/{addressId}", id));
 		
 		//THEN the address should be deleted from the repository successfully
 		action
@@ -171,9 +171,9 @@ public class AddressBookControllerIntegrationTest {
 		//GIVEN an address to update
 		ObjectMapper jsonMapper = new ObjectMapper();
 		Address expectedAddress = new Address("Joe", "Shmo", "joe@shmo.com", "805-999-9999", "324 Channel Islands Blvd","apt 2","Cambria","CA", "93428");
-		
+		expectedAddress.setId(1L);
 		//WHEN calling the api with the updated address information
-		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/address/update")
+		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/api/address/" + expectedAddress.getId())
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonMapper.writeValueAsString(expectedAddress));
 

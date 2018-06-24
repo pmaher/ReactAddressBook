@@ -3,7 +3,9 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
-import { AddressList } from './addressList';
+import { HomePage } from './HomePage';
+import { EditAddressPage } from './EditAddressPage';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -26,7 +28,12 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-	<App />,
+	<HashRouter>
+		<Switch>
+			<Route exact={true} path="/" component={ HomePage } />
+			<Route path="/edit/:addressId" component={ EditAddressPage } />			
+		</Switch>
+	</HashRouter>,
 	document.getElementById('react')
 )
 
