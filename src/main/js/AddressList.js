@@ -12,7 +12,6 @@ export class AddressList extends React.Component {
 		}
 	}
 	componentDidMount() {
-		//TODO: this REST endpoint should probably just be /api/address
 		axios.get('/api/address').then( (response) => {
 			this.setState( Object.assign({}, { addresses: response.data }) );
 		});
@@ -63,16 +62,22 @@ export class Address extends React.Component {
 				<td>{ address.lastName }</td>
 				<td>{ address.email }</td>
 				<td>{ address.phone }</td>
-				<td><EditAddressButton to={ "/edit/"+address.id } /></td>
+				<td><EditAddressButton to={ "/edit/"+address.id }>Edit</EditAddressButton></td>
 			</tr>
 		)
 	}
 }
 
 const EditAddressButton = withRouter( (props) => (
-		<button className="btn btn-info" onClick={ ()=> props.history.push(props.to)}>Edit</button>
+		<button className="btn btn-info" onClick={ ()=> props.history.push(props.to)}>{props.children}</button>
 	)
 );
+
+module.exports = {
+	Address : Address,
+	AddressList : AddressList,
+	EditAddressButton : EditAddressButton
+}
 
 
 

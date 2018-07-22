@@ -1,9 +1,11 @@
 require('./helpers/enzyme-setup');
 import React from 'react';
 import {configure, mount} from 'enzyme';
-import { AddressList, Address } from '../AddressList';
+import { AddressList, Address, EditAddressButton } from '../AddressList';
 import axios from 'axios';
 import renderer from 'react-test-renderer';
+//the MemoryRouter is used to get around issues around React context
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('axios');
     
 describe('AddressList', () => {
@@ -37,7 +39,7 @@ describe('AddressList', () => {
     	]};
     	axios.get.mockResolvedValue(response);
     	
-    	const wrapper = mount(<AddressList />);
+    	const wrapper = mount(<MemoryRouter><AddressList /></MemoryRouter>);
 
     	//queue this assertion callback behind the axios mock promise being resolved
     	setImmediate(() => {
@@ -49,9 +51,9 @@ describe('AddressList', () => {
     
     
     it('should display "no results" message when no addresses are found', () => {
-    	const response = [];
+    	const response = { data: [] };
     	axios.get.mockResolvedValue(response);
-    	const wrapper = mount(<AddressList />);
+    	const wrapper = mount(<MemoryRouter><AddressList /></MemoryRouter>);
 
     	//queue this assertion callback behind the axios mock promise being resolved
     	setImmediate(() => {
@@ -61,4 +63,20 @@ describe('AddressList', () => {
     	});
     });
 
-  });
+});
+
+describe('EditAddressButton', () => {
+	it('should navigate to the url passed in via props when clicked', () => {
+		const pushMock = jest.fn(),
+			historyMock = { "push": pushMock },
+			//Then we tell enzyme to explicitly only render the WrappedComponent, not the router, to access the mock history props
+			wrapper = mount(<MemoryRouter><EditAddressButton.WrappedComponent to={"/edit/3"} history={historyMock}>Edit</EditAddressButton.WrappedComponent></MemoryRouter>);
+
+		const button = wrapper.find('button').at(0);
+		button.prop('onClick')();
+		expect(pushMock.mock.calls.length).toBe(1);
+		// The first argument of the first call to the function was 0
+		expect(pushMock.mock.calls[0][0]).toBe("/edit/3");
+	});
+});
+

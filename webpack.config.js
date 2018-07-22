@@ -11,7 +11,7 @@ module.exports = {
 	},
 	output: {
 		path: __dirname,
-		//this will be ./src/main/resources/static/built/bundle.js + target directory
+		//this will be ./src/main/resources/static/built/bundle.js and ./target/classes/static/built/bundle.js directories
 		filename: '[name].js'
 	},
     module: {
