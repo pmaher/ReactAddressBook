@@ -1,6 +1,5 @@
 require('./helpers/enzyme-setup');
 import React from 'react';
-import {configure, mount} from 'enzyme';
 import { AddressList, Address, EditAddressButton } from '../AddressList';
 import axios from 'axios';
 import renderer from 'react-test-renderer';
@@ -10,7 +9,7 @@ jest.mock('axios');
     
 describe('AddressList', () => {
     
-    it('should make request to backend to retrieve all addresses', () => {
+    it('should make request to backend to retrieve all addresses', done => {
     	const response = { data: [
     		{
     			id: 1,
@@ -40,26 +39,37 @@ describe('AddressList', () => {
     	axios.get.mockResolvedValue(response);
     	
     	const wrapper = mount(<MemoryRouter><AddressList /></MemoryRouter>);
-
-    	//queue this assertion callback behind the axios mock promise being resolved
+    	
+    	//we need queue this assertion until the mocked promise has been resolved to ensure the state of the wrapper was set correctly
     	setImmediate(() => {
-        	//this update is needed since the enzyme wrapper is immutable as of v.3
-        	wrapper.update();
-        	expect(wrapper).toMatchSnapshot();
+    		debugger;
+    		//we need this children wrappers here to get inside of the MemoryRouter
+    		expect(wrapper.children(0).children(0).instance().state.addresses).toEqual(response.data);
+    		/* this update is needed since the enzyme wrapper is immutable as of v.3
+    		updates the mounted wrapper to reflect data from the mock ajax request */
+    		wrapper.update();
+    		expect(wrapper.debug()).toMatchSnapshot();
+    		done();
     	});
     });
     
     
-    it('should display "no results" message when no addresses are found', () => {
+    it('should display "no results" message when no addresses are found', done => {
     	const response = { data: [] };
     	axios.get.mockResolvedValue(response);
     	const wrapper = mount(<MemoryRouter><AddressList /></MemoryRouter>);
-
-    	//queue this assertion callback behind the axios mock promise being resolved
+    	
+    	//we need queue this assertion until the mocked promise has been resolved to ensure the state of the wrapper was set correctly
     	setImmediate(() => {
-        	//this update is needed since the enzyme wrapper is immutable as of v.3
-        	wrapper.update();
-        	expect(wrapper).toMatchSnapshot();
+    		debugger;
+    		//we need this children wrappers here to get inside of the MemoryRouter
+    		expect(wrapper.children(0).children(0).instance().state.addresses).toEqual(response.data);
+
+    		/* this update is needed since the enzyme wrapper is immutable as of v.3
+    		updates the mounted wrapper to reflect data from the mock ajax request */
+    		wrapper.update();
+    		expect(wrapper.debug()).toMatchSnapshot();
+    		done();
     	});
     });
 

@@ -32,6 +32,7 @@ export class EditAddress extends React.Component {
 	}
 	
 	componentDidMount() {
+		//this is the param passed from the url
 		const addressId = this.props.addressId;
 		axios.get('/api/address/' + addressId).then((response) => {
 			this.setState({

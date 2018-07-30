@@ -25493,6 +25493,7 @@
 			value: function componentDidMount() {
 				var _this3 = this;
 	
+				//this is the param passed from the url
 				var addressId = this.props.addressId;
 				_axios2.default.get('/api/address/' + addressId).then(function (response) {
 					_this3.setState({

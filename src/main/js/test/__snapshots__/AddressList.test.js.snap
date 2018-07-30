@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddressList should display "no results" message when no addresses are found 1`] = `
+"<MemoryRouter>
+  <Router history={{...}}>
+    <AddressList>
+      <table className=\\"table table-striped table-bordered table-hover\\">
+        <tbody>
+          <tr>
+            <th>
+              First Name
+            </th>
+            <th>
+              Last Name
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              Phone
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td colSpan=\\"5\\">
+              No Results Found...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </AddressList>
+  </Router>
+</MemoryRouter>"
+`;
+
+exports[`AddressList should make request to backend to retrieve all addresses 1`] = `
+"<MemoryRouter>
+  <Router history={{...}}>
+    <AddressList>
+      <table className=\\"table table-striped table-bordered table-hover\\">
+        <tbody>
+          <tr>
+            <th>
+              First Name
+            </th>
+            <th>
+              Last Name
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              Phone
+            </th>
+            <th />
+          </tr>
+          <Address address={{...}}>
+            <tr>
+              <td>
+                James
+              </td>
+              <td>
+                Carter
+              </td>
+              <td>
+                James.Carter@hotmail.com
+              </td>
+              <td>
+                (805) 111-9999
+              </td>
+              <td>
+                <withRouter() to=\\"/edit/1\\">
+                  <Route>
+                    <Component to=\\"/edit/1\\" match={{...}} location={{...}} history={{...}} staticContext={[undefined]}>
+                      <button className=\\"btn btn-info\\" onClick={[Function: onClick]}>
+                        Edit
+                      </button>
+                    </Component>
+                  </Route>
+                </withRouter()>
+              </td>
+            </tr>
+          </Address>
+          <Address address={{...}}>
+            <tr>
+              <td>
+                Helen
+              </td>
+              <td>
+                Leary
+              </td>
+              <td>
+                Helen.Leary@yahoo.com
+              </td>
+              <td>
+                (805) 222-8888
+              </td>
+              <td>
+                <withRouter() to=\\"/edit/2\\">
+                  <Route>
+                    <Component to=\\"/edit/2\\" match={{...}} location={{...}} history={{...}} staticContext={[undefined]}>
+                      <button className=\\"btn btn-info\\" onClick={[Function: onClick]}>
+                        Edit
+                      </button>
+                    </Component>
+                  </Route>
+                </withRouter()>
+              </td>
+            </tr>
+          </Address>
+        </tbody>
+      </table>
+    </AddressList>
+  </Router>
+</MemoryRouter>"
+`;
